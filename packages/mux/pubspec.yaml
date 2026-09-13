@@ -1,0 +1,12 @@
+name: mux
+description: Request-keyed state channel with a retained per-key cache. Pure Dart.
+version: 0.0.1
+publish_to: none
+
+environment:
+  sdk: ^3.10.1
+
+resolution: workspace
+dev_dependencies:
+  lints: ^6.1.0
+  test: ^1.26.3

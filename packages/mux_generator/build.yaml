@@ -1,0 +1,16 @@
+builders:
+  # Per library: records @WithService / @MuxProvide declarations as JSON.
+  mux_collect:
+    import: "package:mux_generator/builder.dart"
+    builder_factories: ["muxCollectBuilder"]
+    build_extensions: { ".dart": [".mux.json"] }
+    auto_apply: dependents
+    runs_before: ["mux_generator|mux_init"]
+    build_to: cache
+  # On the @MuxInit library: aggregates the JSON into $createMuxChannel.
+  mux_init:
+    import: "package:mux_generator/builder.dart"
+    builder_factories: ["muxInitBuilder"]
+    build_extensions: { ".dart": [".mux.dart"] }
+    auto_apply: dependents
+    build_to: source
