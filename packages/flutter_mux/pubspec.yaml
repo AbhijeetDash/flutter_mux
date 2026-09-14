@@ -1,0 +1,21 @@
+name: flutter_mux
+description: Flutter widgets for mux, a request-keyed state channel.
+version: 0.1.0-dev.1
+repository: https://github.com/AbhijeetDash/flutter_mux/tree/main/packages/flutter_mux
+issue_tracker: https://github.com/AbhijeetDash/flutter_mux/issues
+
+environment:
+  sdk: ^3.10.1
+  flutter: ">=3.38.0"
+
+resolution: workspace
+
+dependencies:
+  flutter:
+    sdk: flutter
+  mux: ^0.1.0-dev.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0

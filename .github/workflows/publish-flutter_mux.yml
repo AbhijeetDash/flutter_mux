@@ -1,0 +1,17 @@
+name: Publish flutter_mux
+
+# Requires automated publishing on pub.dev/packages/flutter_mux/admin with the
+# tag pattern `flutter_mux-v{{version}}`. Push after the matching mux version is
+# live on pub.dev.
+on:
+  push:
+    tags:
+      - 'flutter_mux-v[0-9]*'
+
+jobs:
+  publish:
+    permissions:
+      id-token: write
+    uses: dart-lang/setup-dart/.github/workflows/publish.yml@v1
+    with:
+      working-directory: packages/flutter_mux

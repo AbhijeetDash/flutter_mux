@@ -1,0 +1,16 @@
+name: Publish mux
+
+# Requires automated publishing on pub.dev/packages/mux/admin with the tag
+# pattern `mux-v{{version}}`.
+on:
+  push:
+    tags:
+      - 'mux-v[0-9]*'
+
+jobs:
+  publish:
+    permissions:
+      id-token: write
+    uses: dart-lang/setup-dart/.github/workflows/publish.yml@v1
+    with:
+      working-directory: packages/mux
