@@ -1,17 +1,20 @@
 name: mux_generator
 description: "build_runner generator for mux: wires @WithService services into one channel."
-version: 0.0.1
-publish_to: none
+version: 0.1.0-dev.1
+repository: https://github.com/AbhijeetDash/flutter_mux/tree/main/packages/mux_generator
+issue_tracker: https://github.com/AbhijeetDash/flutter_mux/issues
 
 environment:
   sdk: ^3.10.1
 
 resolution: workspace
 
-# analyzer stays below 9: test 1.26.x (the newest compatible with Flutter's
-# pinned test_api on Dart 3.10) requires analyzer <9.
+# The workspace resolves analyzer 8.x: test 1.26.x (the newest compatible with
+# Flutter's pinned test_api on Dart 3.10) requires analyzer <9. The range is
+# wider so apps on newer SDKs can resolve analyzer 9 or 10; only 8.x is tested
+# here.
 dependencies:
-  analyzer: ">=8.1.1 <9.0.0"
+  analyzer: ">=8.1.1 <11.0.0"
   build: ^4.0.7
   glob: ^2.2.0
   source_gen: ^4.2.4

@@ -1,7 +1,8 @@
 name: mux
 description: Request-keyed state channel with a retained per-key cache. Pure Dart.
-version: 0.0.1
-publish_to: none
+version: 0.1.0-dev.1
+repository: https://github.com/AbhijeetDash/flutter_mux/tree/main/packages/mux
+issue_tracker: https://github.com/AbhijeetDash/flutter_mux/issues
 
 environment:
   sdk: ^3.10.1

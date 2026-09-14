@@ -1,39 +1,43 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# flutter_mux
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/tools/pub/writing-package-pages).
+A request-keyed state management workspace for Dart and Flutter. The UI sends
+typed requests over one channel, services answer them, and widgets rebuild only
+for the requests they read.
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/to/develop-packages).
--->
+| Package | Description |
+|---|---|
+| [`mux`](packages/mux) | Pure-Dart core: channel, per-key cache, sequencing, eviction, annotations. |
+| [`flutter_mux`](packages/flutter_mux) | Widgets: `MuxApp`, `MuxBuilder`, `context.send`. |
+| [`mux_generator`](packages/mux_generator) | `build_runner` generator that wires `@WithService` services into the channel. |
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+[`example/`](example) is a paginated, filterable user list with pull-to-refresh
+built on all three packages.
 
-## Features
+## Development
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+Requires Dart 3.10+ and [melos](https://melos.invertase.dev).
 
-## Getting started
-
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
-
-## Usage
-
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
-
-```dart
-const like = 'sample';
+```bash
+dart pub global activate melos
+flutter pub get
+melos run generate      # build_runner in packages using mux_generator
+melos run test:dart     # mux, mux_generator
+melos run test:flutter  # flutter_mux, example
 ```
 
-## Additional information
+## Releasing
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+The packages share one version (melos fixed mode). Commit messages follow
+[Conventional Commits](https://www.conventionalcommits.org) (`feat:`, `fix:`, …),
+which melos uses to pick the next version and write the changelogs.
+
+```bash
+melos version --prerelease   # e.g. 0.1.0-dev.1 -> 0.1.0-dev.2
+melos version --graduate     # e.g. 0.1.0-dev.2 -> 0.1.0
+melos publish                # dry run
+melos publish --no-dry-run   # publish to pub.dev
+```
+
+## License
+
+MIT. See [LICENSE](LICENSE).

@@ -12,6 +12,10 @@ workspace:
   - example
 
 melos:
+  command:
+    version:
+      mode: fixed
+      branch: main
   scripts:
     test:dart:
       description: Run `dart test` in pure Dart packages.

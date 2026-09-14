@@ -11,15 +11,15 @@ resolution: workspace
 dependencies:
   flutter:
     sdk: flutter
-  flutter_mux: ^0.0.1
-  mux: ^0.0.1
+  flutter_mux: ^0.1.0-dev.1
+  mux: ^0.1.0-dev.1
 
 dev_dependencies:
   build_runner: ^2.15.1
   flutter_test:
     sdk: flutter
   flutter_lints: ^6.0.0
-  mux_generator: ^0.0.1
+  mux_generator: ^0.1.0-dev.1
 
 flutter:
   uses-material-design: true
