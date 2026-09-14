@@ -1,0 +1,47 @@
+name: GitHub release
+
+# Creates a GitHub Release for each package tag (e.g. mux-v0.1.0-dev.1), using
+# that version's section of the package CHANGELOG as release notes.
+on:
+  push:
+    tags:
+      - 'mux-v[0-9]*'
+      - 'flutter_mux-v[0-9]*'
+      - 'mux_generator-v[0-9]*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Create release from CHANGELOG
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.ref_name }}
+        run: |
+          package="${TAG%-v*}"
+          version="${TAG##*-v}"
+          changelog="packages/$package/CHANGELOG.md"
+
+          awk -v heading="## $version" '
+            $0 == heading { found = 1; next }
+            found && /^## / { exit }
+            found { print }
+          ' "$changelog" > notes.md
+
+          if ! grep -q '[^[:space:]]' notes.md; then
+            echo "::error::No '## $version' section in $changelog"
+            exit 1
+          fi
+
+          prerelease=()
+          case "$version" in *-*) prerelease=(--prerelease) ;; esac
+
+          gh release create "$TAG" --verify-tag \
+            --title "$package $version" \
+            --notes-file notes.md \
+            "${prerelease[@]}"

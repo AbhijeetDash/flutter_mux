@@ -27,16 +27,31 @@ melos run test:flutter  # flutter_mux, example
 
 ## Releasing
 
-The packages share one version (melos fixed mode). Commit messages follow
+The packages share one version (melos fixed mode), and each package gets its own
+tag, such as `mux-v0.1.0-dev.1`. Commit messages follow
 [Conventional Commits](https://www.conventionalcommits.org) (`feat:`, `fix:`, …),
 which melos uses to pick the next version and write the changelogs.
 
 ```bash
-melos version --prerelease   # e.g. 0.1.0-dev.1 -> 0.1.0-dev.2
+melos version --prerelease   # e.g. 0.1.0-dev.1 -> 0.1.0-dev.2 (commits and tags)
 melos version --graduate     # e.g. 0.1.0-dev.2 -> 0.1.0
-melos publish                # dry run
-melos publish --no-dry-run   # publish to pub.dev
 ```
+
+Pushing a package tag runs two workflows:
+
+- [`release.yml`](.github/workflows/release.yml) creates a GitHub Release
+  from that version's CHANGELOG section. `-dev` versions are marked as
+  prereleases.
+- `publish-<package>.yml` publishes the package to pub.dev through
+  [automated publishing](https://dart.dev/tools/pub/automated-publishing).
+
+Push the `mux-v…` tag first and wait for it to publish, because `flutter_mux`
+and `mux_generator` depend on it.
+
+The first version of each package has to be published by hand, `mux` first:
+run `dart pub publish` in each package directory. Then, on each package's
+pub.dev admin page, enable automated publishing for this repository with the tag
+pattern `<package>-v{{version}}`.
 
 ## License
 
